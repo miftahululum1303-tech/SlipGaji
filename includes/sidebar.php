@@ -56,12 +56,21 @@ $role = $_SESSION['role'];
                 <div class="collapse <?= isset($_GET['page']) && in_array($_GET['page'], ['karyawan', 'golongan', 'jabatan']) ? 'show' : '' ?>"
                     id="menuMaster">
                     <ul class="nav flex-column ms-4 pt-1 gap-1 sub-menu">
-                        <li><a class="nav-link-sub" href="index.php?page=karyawan"><i
-                                    class="fa-solid fa-circle-dot me-2"></i>Data Karyawan</a></li>
-                        <li><a class="nav-link-sub" href="index.php?page=golongan"><i
-                                    class="fa-solid fa-circle-dot me-2"></i>Data Golongan</a></li>
-                        <li><a class="nav-link-sub" href="index.php?page=jabatan"><i
-                                    class="fa-solid fa-circle-dot me-2"></i>Data Jabatan</a></li>
+                        <li>
+                            <a class="nav-link-sub <?= isset($_GET['page']) && $_GET['page'] == 'karyawan' ? 'active-sub' : '' ?>"
+                                href="index.php?page=karyawan">
+                                <i class="fa-solid fa-circle-dot me-2"></i>Data Karyawan</a>
+                        </li>
+                        <li>
+                            <a class="nav-link-sub <?= isset($_GET['page']) && $_GET['page'] == 'golongan' ? 'active-sub' : '' ?>"
+                                href="index.php?page=golongan">
+                                <i class="fa-solid fa-circle-dot me-2"></i>Data Golongan</a>
+                        </li>
+                        <li>
+                            <a class="nav-link-sub <?= isset($_GET['page']) && $_GET['page'] == 'jabatan' ? 'active-sub' : '' ?>"
+                                href="index.php?page=jabatan">
+                                <i class="fa-solid fa-circle-dot me-2"></i>Data Jabatan</a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -77,20 +86,38 @@ $role = $_SESSION['role'];
                     </div>
                     <i class="fa-solid fa-chevron-down arrow-icon small text-secondary"></i>
                 </a>
-                <div class="collapse <?= isset($_GET['page']) && in_array($_GET['page'], ['transaksi_golongan', 'transaksi_jabatan']) ? 'show' : '' ?>"
+                <div class="collapse <?= isset($_GET['page']) && in_array($_GET['page'], ['transaksi_golongan', 'transaksi_jabatan', 'transaksi_gaji']) ? 'show' : '' ?>"
                     id="menuTransaksi">
                     <ul class="nav flex-column ms-4 pt-1 gap-1 sub-menu">
-                        <li><a class="nav-link-sub" href="index.php?page=transaksi_golongan"><i
-                                    class="fa-solid fa-circle-dot me-2"></i>Transaksi Golongan</a></li>
-                        <li><a class="nav-link-sub" href="index.php?page=transaksi_jabatan"><i
-                                    class="fa-solid fa-circle-dot me-2"></i>Transaksi Jabatan</a></li>
-                        <li><a class="nav-link-sub" href="index.php?page=transaksi_gaji"><i
-                                    class="fa-solid fa-circle-dot me-2"></i>Transaksi Gaji</a></li>
+                        <li>
+                            <a class="nav-link-sub <?= isset($_GET['page']) && $_GET['page'] == 'transaksi_golongan' ? 'active-sub' : '' ?>"
+                                href="index.php?page=transaksi_golongan">
+                                <i class="fa-solid fa-circle-dot me-2"></i>Transaksi Golongan</a>
+                        </li>
+                        <li>
+                            <a class="nav-link-sub <?= isset($_GET['page']) && $_GET['page'] == 'transaksi_jabatan' ? 'active-sub' : '' ?>"
+                                href="index.php?page=transaksi_jabatan">
+                                <i class="fa-solid fa-circle-dot me-2"></i>Transaksi Jabatan</a>
+                        </li>
+                        <li>
+                            <a class="nav-link-sub <?= isset($_GET['page']) && $_GET['page'] == 'transaksi_gaji' ? 'active-sub' : '' ?>"
+                                href="index.php?page=transaksi_gaji">
+                                <i class="fa-solid fa-circle-dot me-2"></i>Transaksi Gaji</a>
+                        </li>
                     </ul>
                 </div>
             </li>
             <?php } ?>
-            
+
+            <?php if ($role == 'admin') { ?>
+            <li class="nav-item">
+                <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] == 'laporan' ? 'active' : '' ?>"
+                    href="index.php?page=laporan">
+                    <i class="fa-solid fa-file-waveform nav-icon"></i>
+                    <span>Laporan</span>
+                </a>
+            </li>
+            <?php } ?>
         </ul>
     </div>
 
@@ -202,5 +229,11 @@ $role = $_SESSION['role'];
 
     .sidebar-premium .arrow-icon {
         transition: transform 0.2s ease;
+    }
+
+    .sidebar-premium .nav-link-sub.active-sub {
+        color: #38bdf8 !important;
+        background-color: rgba(56, 189, 248, 0.08);
+        font-weight: 600;
     }
 </style>

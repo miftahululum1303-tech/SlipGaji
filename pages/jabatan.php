@@ -28,6 +28,31 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
         echo "<script>alert('Data Jabatan Berhasil Dihapus!'); window.location='index.php?page=jabatan';</script>";
     }
 }
+
+// ==========================================
+// LOGIKA UPDATE DATA JABATAN
+// ==========================================
+if (isset($_POST['update_jabatan'])) {
+    $id_jabatan = intval($_POST['id_jabatan']);
+    $nama_jabatan = mysqli_real_escape_string($koneksi, $_POST['nama_jabatan']);
+    $gaji_pokok = mysqli_real_escape_string($koneksi, $_POST['gaji_pokok']);
+    $tunjangan_jabatan = mysqli_real_escape_string($koneksi, $_POST['tunjangan_jabatan']);
+
+    mysqli_query(
+        $koneksi,
+        "UPDATE jabatan
+         SET
+            nama_jabatan='$nama_jabatan',
+            gaji_pokok='$gaji_pokok',
+            tunjangan_jabatan='$tunjangan_jabatan'
+         WHERE id_jabatan='$id_jabatan'",
+    );
+
+    echo "<script>
+        alert('Data Jabatan Berhasil Diupdate!');
+        window.location='index.php?page=jabatan';
+    </script>";
+}
 ?>
 
 <div class="card border-0 shadow-sm bg-white rounded-3">
@@ -149,6 +174,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
                             Rp <?= number_format($row['tunjangan_jabatan'], 0, ',', '.') ?>
                         </td>
                         <td class="text-center pe-3">
+                            <button class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="modal"
+                                data-bs-target="#edit<?= $row['id_jabatan'] ?>">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
                             <a href="index.php?page=jabatan&action=hapus&id=<?= $row['id_jabatan'] ?>"
                                 onclick="return confirm('Apakah Anda yakin ingin menghapus data jabatan <?= $row['nama_jabatan'] ?>?');"
                                 class="btn btn-white btn-sm text-danger border shadow-sm px-2.5" title="Hapus Data">
@@ -156,6 +186,51 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
                             </a>
                         </td>
                     </tr>
+
+                    <div class="modal fade" id="edit<?= $row['id_jabatan'] ?>" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow">
+                                <form method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fw-bold">
+                                            Edit Data Jabatan
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_jabatan" value="<?= $row['id_jabatan'] ?>">
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Nama Jabatan
+                                            </label>
+                                            <input type="text" name="nama_jabatan" class="form-control"
+                                                value="<?= $row['nama_jabatan'] ?>" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Gaji Pokok
+                                            </label>
+                                            <input type="number" name="gaji_pokok" class="form-control"
+                                                value="<?= $row['gaji_pokok'] ?>" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Tunjangan Jabatan
+                                            </label>
+                                            <input type="number" name="tunjangan_jabatan" class="form-control"
+                                                value="<?= $row['tunjangan_jabatan'] ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="update_jabatan" class="btn btn-primary">
+                                            Update Data
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <?php } ?>
                 </tbody>
             </table>

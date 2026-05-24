@@ -27,6 +27,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
         echo "<script>alert('Data Golongan Berhasil Dihapus!'); window.location='index.php?page=golongan';</script>";
     }
 }
+
+// ==========================================
+// LOGIKA UPDATE DATA GOLONGAN
+// ==========================================
+if (isset($_POST['update_golongan'])) {
+    $id_golongan = intval($_POST['id_golongan']);
+    $nama_golongan = mysqli_real_escape_string($koneksi, $_POST['nama_golongan']);
+    $tunjangan_golongan = mysqli_real_escape_string($koneksi, $_POST['tunjangan_golongan']);
+
+    mysqli_query(
+        $koneksi,
+        "UPDATE golongan
+         SET
+            nama_golongan='$nama_golongan',
+            tunjangan_golongan='$tunjangan_golongan'
+         WHERE id_golongan='$id_golongan'",
+    );
+
+    echo "<script>
+        alert('Data Golongan Berhasil Diupdate!');
+        window.location='index.php?page=golongan';
+    </script>";
+}
 ?>
 
 <div class="card border-0 shadow-sm bg-white rounded-3">
@@ -130,6 +153,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
                             Rp <?= number_format($row['tunjangan_golongan'], 0, ',', '.') ?>
                         </td>
                         <td class="text-center pe-3">
+                            <button class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="modal"
+                                data-bs-target="#edit<?= $row['id_golongan'] ?>">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
                             <a href="index.php?page=golongan&action=hapus&id=<?= $row['id_golongan'] ?>"
                                 onclick="return confirm('Apakah Anda yakin ingin menghapus data <?= $row['nama_golongan'] ?>?');"
                                 class="btn btn-white btn-sm text-danger border shadow-sm px-2.5" title="Hapus Data">
@@ -137,6 +165,44 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
                             </a>
                         </td>
                     </tr>
+
+                    <div class="modal fade" id="edit<?= $row['id_golongan'] ?>" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow">
+                                <form method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fw-bold">
+                                            Edit Data Golongan
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_golongan" value="<?= $row['id_golongan'] ?>">
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Nama Golongan
+                                            </label>
+                                            <input type="text" name="nama_golongan" class="form-control"
+                                                value="<?= $row['nama_golongan'] ?>" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Tunjangan Golongan
+                                            </label>
+                                            <input type="number" name="tunjangan_golongan" class="form-control"
+                                                value="<?= $row['tunjangan_golongan'] ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="update_golongan" class="btn btn-primary">
+                                            Update Data
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <?php } ?>
                 </tbody>
             </table>

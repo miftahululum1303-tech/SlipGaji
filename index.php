@@ -42,10 +42,12 @@ include 'includes/sidebar.php';
                 </div>";
             }
         } else {
-            // =================================================================
-            // HALAMAN DEFAULT: DASHBOARD UTAMA (DESAIN PREMIUM & MODERN)
-            // =================================================================
-            ?>
+
+        $role = $_SESSION['role'];
+
+        if ($role == 'admin') {
+
+        ?>
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
             <div>
                 <h4 class="fw-black text-dark mb-1 letter-spacing-tight" style="font-weight: 800;">Dashboard Utama</h4>
@@ -98,9 +100,13 @@ include 'includes/sidebar.php';
                                 $current_month = date('Y-m');
 
                                 // Cek apakah tabel 'gaji' ada sebelum melakukan query
-                                $check_table = mysqli_query($koneksi, "SHOW TABLES LIKE 'gaji'");
+                                $check_table = mysqli_query($koneksi, "SHOW TABLES LIKE 'transaksi_gaji'");
                                 if (mysqli_num_rows($check_table) > 0) {
-                                    $get_gaji = mysqli_query($koneksi, "SELECT SUM(total_gaji) as total FROM gaji WHERE bulan_tahun='$current_month'");
+                                    $get_gaji = mysqli_query(
+                                        $koneksi,
+                                        "SELECT SUM(total_gaji) as total
+                                                                                                                                                                                                                                                                                                                                                                FROM transaksi_gaji WHERE periode='$current_month'",
+                                    );
                                     $data_gaji = mysqli_fetch_assoc($get_gaji);
                                     $total_gaji = $data_gaji['total'] ?? 0;
                                 } else {
@@ -140,6 +146,32 @@ include 'includes/sidebar.php';
             </div>
         </div>
 
+        <?php
+
+        $bulan = [];
+        $total_bulanan = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $bln = str_pad($i, 2, '0', STR_PAD_LEFT);
+
+            $periode = date('Y') . '-' . $bln;
+
+            $query_chart = mysqli_query(
+                $koneksi,
+                "SELECT SUM(total_gaji) as total
+                                                                                         FROM transaksi_gaji
+                                                                                         WHERE periode='$periode'",
+            );
+
+            $data_chart = mysqli_fetch_assoc($query_chart);
+
+            $bulan[] = date('M', strtotime($periode));
+
+            $total_bulanan[] = $data_chart['total'] ?? 0;
+        }
+
+        ?>
+
         <div class="row g-4">
             <div class="col-12">
                 <div class="card border-0 shadow-sm rounded-3 bg-white overflow-hidden">
@@ -160,12 +192,162 @@ include 'includes/sidebar.php';
                     </div>
                     <div class="card-body px-4 pb-4 pt-2">
                         <div style="position: relative; height:320px; width:100%">
-                            <canvas id="myChart"></canvas>
+                            <canvas id="payrollChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <?php
+} elseif ($role == 'karyawan') {
+?>
+
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+
+            <div>
+
+                <h4 class="fw-black text-dark mb-1" style="font-weight: 800;">
+                    Dashboard Karyawan
+                </h4>
+
+                <p class="text-muted small mb-0">
+                    Selamat datang kembali di Payroll System.
+                </p>
+
+            </div>
+
+            <div class="badge bg-white text-dark border px-3 py-2 rounded-pill shadow-sm">
+
+                <i class="fa-solid fa-user me-2 text-primary"></i>
+
+                <?php
+
+                $get_user = mysqli_query(
+                    $koneksi,
+                    "SELECT nama_karyawan
+                         FROM karyawan
+                         WHERE id_karyawan='$_SESSION[id_karyawan]'",
+                );
+
+                $user = mysqli_fetch_assoc($get_user);
+
+                ?>
+
+                <?= $user['nama_karyawan'] ?? 'Karyawan' ?>
+
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <!-- SLIP TERAKHIR -->
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+
+                            <div>
+
+                                <h6 class="fw-bold mb-1">
+                                    Slip Gaji Terakhir
+                                </h6>
+
+                                <small class="text-muted">
+                                    Payroll terbaru Anda
+                                </small>
+
+                            </div>
+
+                            <div class="icon-shape bg-success bg-opacity-10 text-success rounded-3">
+                                <i class="fa-solid fa-wallet"></i>
+                            </div>
+
+                        </div>
+
+                        <?php
+
+                        $id_karyawan = $_SESSION['id_karyawan'];
+
+                        $gaji = mysqli_query(
+                            $koneksi,
+                            "SELECT *
+                                                                                                                                                                                                                                                                                                                                             FROM transaksi_gaji
+                                                                                                                                                                                                                                                                                                                                             WHERE id_karyawan='$id_karyawan'
+                                                                                                                                                                                                                                                                                                                                             ORDER BY id_gaji DESC
+                                                                                                                                                                                                                                                                                                                                             LIMIT 1",
+                        );
+
+                        $data = mysqli_fetch_assoc($gaji);
+
+                        ?>
+
+                        <h3 class="fw-black text-success mb-1">
+
+                            Rp <?= number_format($data['total_gaji'] ?? 0, 0, ',', '.') ?>
+
+                        </h3>
+
+                        <small class="text-muted">
+
+                            Periode:
+                            <?= $data['periode'] ?? '-' ?>
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- STATUS -->
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+
+                            <div>
+
+                                <h6 class="fw-bold mb-1">
+                                    Status Payroll
+                                </h6>
+
+                                <small class="text-muted">
+                                    Status sistem penggajian
+                                </small>
+
+                            </div>
+
+                            <div class="icon-shape bg-primary bg-opacity-10 text-primary rounded-3">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+
+                        </div>
+
+                        <h4 class="fw-bold text-success">
+                            Aktif & Normal
+                        </h4>
+
+                        <small class="text-muted">
+                            Sistem payroll berjalan normal.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <?php } ?>
         <?php
         }
         ?>
@@ -231,6 +413,110 @@ include 'includes/sidebar.php';
         document.getElementById('liveClock').textContent = hours + ':' + minutes + ' WIB';
     }
     setInterval(updateClock, 1000);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('payrollChart');
+
+    if (ctx) {
+
+        if (window.payrollChartInstance) {
+            window.payrollChartInstance.destroy();
+        }
+
+        window.payrollChartInstance = new Chart(ctx, {
+
+            type: 'line',
+
+            data: {
+
+                labels: <?= json_encode($bulan) ?>,
+
+                datasets: [{
+
+                    label: 'Pengeluaran Payroll',
+
+                    data: <?= json_encode(array_map('intval', $total_bulanan)) ?>,
+
+                    borderWidth: 4,
+
+                    tension: 0.4,
+
+                    fill: true,
+
+                    backgroundColor: 'rgba(59,130,246,0.15)',
+
+                    borderColor: '#3b82f6',
+
+                    pointBackgroundColor: '#2563eb',
+
+                    pointBorderColor: '#fff',
+
+                    pointRadius: 6,
+
+                    pointHoverRadius: 8
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        display: true
+                    },
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return 'Rp ' +
+                                    new Intl.NumberFormat('id-ID').format(context.raw);
+
+                            }
+
+                        }
+
+                    }
+
+                },
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            callback: function(value) {
+
+                                return 'Rp ' +
+                                    new Intl.NumberFormat('id-ID').format(value);
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
 </script>
 
 <?php

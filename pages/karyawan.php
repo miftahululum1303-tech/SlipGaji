@@ -26,15 +26,14 @@ if (isset($_POST['simpan_karyawan'])) {
     );
 
     if ($insert) {
-        if ($insert) {
-            $id_karyawan = mysqli_insert_id($koneksi);
+        $id_karyawan = mysqli_insert_id($koneksi);
 
-            $username = $nik;
-            $password = MD5('123456');
+        $username = $nik;
+        $password = MD5('123456');
 
-            mysqli_query(
-                $koneksi,
-                "INSERT INTO users (
+        mysqli_query(
+            $koneksi,
+            "INSERT INTO users (
             id_karyawan,
             username,
             password,
@@ -45,13 +44,12 @@ if (isset($_POST['simpan_karyawan'])) {
             '$password',
             'karyawan'
         )",
-            );
+        );
 
-            echo "<script>
+        echo "<script>
         alert('Data Karyawan Berhasil Ditambahkan!');
         window.location='index.php?page=karyawan';
     </script>";
-        }
     } else {
         echo "<script>alert('Gagal Menambahkan Data! Periksa kembali apakah NIK sudah pernah terdaftar.');</script>";
     }
@@ -85,6 +83,26 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset') {
 
     echo "<script>
         alert('Password berhasil direset menjadi 123456');
+        window.location='index.php?page=karyawan';
+    </script>";
+}
+
+// ==========================================
+// LOGIKA UPDATE DATA KARYAWAN
+// ==========================================
+if (isset($_POST['update_karyawan'])) {
+    $id_karyawan = intval($_POST['id_karyawan']);
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+
+    mysqli_query(
+        $koneksi,
+        "UPDATE karyawan
+         SET nama_karyawan='$nama'
+         WHERE id_karyawan='$id_karyawan'",
+    );
+
+    echo "<script>
+        alert('Data berhasil diupdate!');
         window.location='index.php?page=karyawan';
     </script>";
 }
@@ -168,7 +186,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset') {
                     if (mysqli_num_rows($sql) == 0) {
                         ?>
                     <tr>
-                        <td colspan="4" class="text-center text-muted py-4 fw-medium bg-light">
+                        <td colspan="5" class="text-center text-muted py-4 fw-medium bg-light">
                             <i class="fa-solid fa-user-slash me-2 text-secondary"></i>
                             Belum ada data karyawan terdaftar.
                         </td>
@@ -218,7 +236,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset') {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <td class="ps-3"><?= $no++ ?></td>
 
                         <td class="fw-bold text-secondary">
@@ -250,6 +268,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset') {
                                 <i class="fa-solid fa-rotate"></i>
                             </a>
 
+                            <button class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="modal"
+                                data-bs-target="#edit<?= $row['id_karyawan'] ?>">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
                             <!-- HAPUS -->
                             <a href="index.php?page=karyawan&action=hapus&id=<?= $row['id_karyawan'] ?>"
                                 onclick="return confirm('Hapus data <?= $row['nama_karyawan'] ?> ?');"
@@ -259,6 +282,37 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset') {
 
                         </td>
                     </tr>
+
+                    <div class="modal fade" id="edit<?= $row['id_karyawan'] ?>" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow">
+                                <form method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fw-bold">
+                                            Edit Data Karyawan
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_karyawan" value="<?= $row['id_karyawan'] ?>">
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Nama Karyawan
+                                            </label>
+                                            <input type="text" name="nama" class="form-control"
+                                                value="<?= $row['nama_karyawan'] ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="update_karyawan" class="btn btn-primary">
+                                            Update Data
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <?php } ?>
                     <?php } ?>
                 </tbody>
