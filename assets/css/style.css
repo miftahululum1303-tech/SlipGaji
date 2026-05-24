@@ -1,0 +1,56 @@
+<?php
+header("Content-type: text/css; charset: UTF-8");
+$primary_color = "#3e7ccb";
+?>
+
+/* Global Style */
+:root {
+    --primary: <?= $primary_color; ?>;
+    --primary-hover: #3469ad;
+    --bg-light: #f0f2f5;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: #1c1e21;
+}
+
+/* Scrollbar Modern */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Custom Card & UI */
+.card-proli {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    transition: transform 0.2s;
+}
+
+.card-proli:hover {
+    transform: translateY(-2px);
+}
+
+/* Submenu Indentation */
+.collapse.ms-3 {
+    margin-left: 1.5rem !important;
+}
+
+.nav-link.dropdown-toggle::after {
+    transition: transform 0.3s;
+}
+
+.nav-link.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
