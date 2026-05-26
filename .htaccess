@@ -1,0 +1,88 @@
+# ========================================
+# ENABLE REWRITE
+# ========================================
+
+RewriteEngine On
+
+
+# ========================================
+# REMOVE INDEX.PHP
+# ========================================
+
+RewriteCond %{THE_REQUEST} \s/index\.php [NC]
+
+RewriteRule ^index\.php$ / [R=301,L]
+
+
+# ========================================
+# ROUTING
+# ========================================
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+
+
+# ========================================
+# DEFAULT INDEX
+# ========================================
+
+DirectoryIndex index.php
+
+
+# ========================================
+# PROTECT IMPORTANT FILES
+# ========================================
+
+<FilesMatch "(\.env|composer\.json|composer\.lock|package\.json|package-lock\.json)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+
+# ========================================
+# DISABLE DIRECTORY LISTING
+# ========================================
+
+Options -Indexes
+
+
+# ========================================
+# CACHE STATIC FILES
+# ========================================
+
+<IfModule mod_expires.c>
+
+    ExpiresActive On
+
+    ExpiresByType text/css "access plus 7 days"
+
+    ExpiresByType application/javascript "access plus 7 days"
+
+    ExpiresByType image/png "access plus 30 days"
+
+    ExpiresByType image/jpg "access plus 30 days"
+
+    ExpiresByType image/jpeg "access plus 30 days"
+
+    ExpiresByType image/gif "access plus 30 days"
+
+    ExpiresByType image/webp "access plus 30 days"
+
+</IfModule>
+
+
+# ========================================
+# SECURITY HEADER
+# ========================================
+
+<IfModule mod_headers.c>
+
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    Header set X-Content-Type-Options "nosniff"
+
+    Header set Referrer-Policy "strict-origin"
+
+</IfModule>

@@ -1,0 +1,227 @@
+/* ========================================
+   AUTH LAYOUT
+======================================== */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+
+  padding: 24px;
+}
+
+/* ========================================
+   LOGIN CARD
+======================================== */
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+  animation: authFade 0.5s ease;
+}
+
+@keyframes authFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.auth-header {
+  text-align: center;
+
+  padding: 32px 32px 20px;
+}
+
+.auth-logo {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(135deg, #0d6efd 0%, #2563eb 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+
+  font-size: 30px;
+
+  box-shadow: 0 12px 30px rgba(13, 110, 253, 0.25);
+}
+
+.auth-title {
+  font-size: 28px;
+
+  font-weight: 800;
+
+  color: #1e293b;
+
+  margin-bottom: 6px;
+}
+
+.auth-subtitle {
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+/* ========================================
+   BODY
+======================================== */
+
+.auth-body {
+  padding: 0 32px 32px;
+}
+
+/* ========================================
+   FORM
+======================================== */
+
+.auth-form .form-label {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #475569;
+}
+
+.auth-form .form-control {
+  height: 50px;
+
+  border-radius: 14px;
+
+  border: 1px solid #dbe2ea;
+
+  padding-left: 14px;
+
+  font-size: 14px;
+
+  transition: all 0.2s ease;
+}
+
+.auth-form .form-control:focus {
+  border-color: #0d6efd;
+
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+/* ========================================
+   INPUT GROUP
+======================================== */
+
+.auth-form .input-group-text {
+  border-radius: 14px 0 0 14px;
+
+  background: #fff;
+
+  border: 1px solid #dbe2ea;
+
+  border-right: 0;
+
+  color: #64748b;
+}
+
+.auth-form .input-group .form-control {
+  border-left: 0;
+}
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.btn-auth {
+  height: 50px;
+
+  border-radius: 14px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  border: 0;
+
+  background: linear-gradient(135deg, #0d6efd 0%, #2563eb 100%);
+
+  transition: all 0.2s ease;
+}
+
+.btn-auth:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 24px rgba(13, 110, 253, 0.25);
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.auth-footer {
+  text-align: center;
+
+  margin-top: 24px;
+
+  font-size: 13px;
+
+  color: #94a3b8;
+}
+
+/* ========================================
+   ALERT
+======================================== */
+
+.auth-alert {
+  border-radius: 14px;
+
+  font-size: 14px;
+
+  padding: 12px 14px;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 576px) {
+  .auth-card {
+    border-radius: 18px;
+  }
+
+  .auth-header {
+    padding: 24px 24px 16px;
+  }
+
+  .auth-body {
+    padding: 0 24px 24px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+  }
+}

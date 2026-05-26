@@ -1,0 +1,219 @@
+/* ========================================
+   DATATABLE WRAPPER
+======================================== */
+
+.dataTables_wrapper {
+  padding: 0;
+}
+
+/* ========================================
+   TABLE
+======================================== */
+
+table.dataTable {
+  border-collapse: separate !important;
+
+  border-spacing: 0;
+}
+
+table.dataTable thead th {
+  background: #f8fafc !important;
+
+  color: #64748b !important;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+  border-bottom: 1px solid #e2e8f0 !important;
+
+  padding: 14px 16px !important;
+}
+
+table.dataTable tbody td {
+  padding: 14px 16px !important;
+
+  vertical-align: middle;
+
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* ========================================
+   ROW HOVER
+======================================== */
+
+table.dataTable tbody tr {
+  transition: background 0.2s ease;
+}
+
+table.dataTable tbody tr:hover {
+  background: rgba(13, 110, 253, 0.03);
+}
+
+/* ========================================
+   SEARCH BOX
+======================================== */
+
+.dataTables_filter {
+  margin-bottom: 18px;
+}
+
+.dataTables_filter label {
+  width: 100%;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #64748b;
+}
+
+.dataTables_filter input {
+  width: 260px !important;
+
+  height: 42px;
+
+  border-radius: 12px !important;
+
+  border: 1px solid #dbe2ea !important;
+
+  padding: 0 14px !important;
+
+  margin-left: 10px !important;
+
+  transition: all 0.2s ease;
+}
+
+.dataTables_filter input:focus {
+  border-color: #0d6efd !important;
+
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12) !important;
+
+  outline: none;
+}
+
+/* ========================================
+   LENGTH SELECT
+======================================== */
+
+.dataTables_length {
+  margin-bottom: 18px;
+}
+
+.dataTables_length label {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #64748b;
+}
+
+.dataTables_length select {
+  height: 42px;
+
+  border-radius: 12px !important;
+
+  border: 1px solid #dbe2ea !important;
+
+  padding: 0 12px !important;
+
+  margin: 0 8px !important;
+}
+
+/* ========================================
+   INFO
+======================================== */
+
+.dataTables_info {
+  font-size: 13px;
+
+  color: #94a3b8;
+
+  padding-top: 18px !important;
+}
+
+/* ========================================
+   PAGINATION
+======================================== */
+
+.dataTables_paginate {
+  padding-top: 12px !important;
+}
+
+.dataTables_paginate .paginate_button {
+  border: none !important;
+
+  background: transparent !important;
+
+  color: #64748b !important;
+
+  border-radius: 10px !important;
+
+  padding: 8px 14px !important;
+
+  margin: 0 2px !important;
+
+  transition: all 0.2s ease;
+}
+
+.dataTables_paginate .paginate_button:hover {
+  background: rgba(13, 110, 253, 0.08) !important;
+
+  color: #0d6efd !important;
+}
+
+.dataTables_paginate .paginate_button.current {
+  background: linear-gradient(135deg, #0d6efd 0%, #2563eb 100%) !important;
+
+  color: #fff !important;
+
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+}
+
+/* ========================================
+   RESPONSIVE ICON
+======================================== */
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
+  background-color: #0d6efd !important;
+
+  border-radius: 50%;
+
+  box-shadow: none;
+}
+
+/* ========================================
+   EMPTY TABLE
+======================================== */
+
+.dataTables_empty {
+  padding: 40px !important;
+
+  color: #94a3b8;
+
+  font-weight: 500;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+  .dataTables_filter input {
+    width: 100% !important;
+
+    margin-left: 0 !important;
+
+    margin-top: 10px;
+  }
+
+  .dataTables_filter label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
