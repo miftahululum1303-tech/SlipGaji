@@ -232,6 +232,87 @@ if (!$data) {
 
     </div>
 
+    <!-- SUMMARY -->
+    <div class="row g-3 mb-4">
+
+        <!-- PERIODE -->
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted d-block mb-2">
+
+                        Periode Payroll
+
+                    </small>
+
+                    <h5 class="fw-bold text-primary mb-0">
+
+                        <?= $data['periode'] ?>
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted d-block mb-2">
+
+                        Status Payroll
+
+                    </small>
+
+                    <span class="badge bg-success px-3 py-2 rounded-pill">
+
+                        Sudah Dibayar
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TANGGAL -->
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted d-block mb-2">
+
+                        Tanggal Payroll
+
+                    </small>
+
+                    <h6 class="fw-bold mb-0">
+
+                        <?= date('d F Y', strtotime($data['tanggal_gaji'])) ?>
+
+                    </h6>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- RINCIAN GAJI -->
     <div class="card border-0 shadow-sm rounded-4">
@@ -239,6 +320,8 @@ if (!$data) {
         <div class="card-body p-4">
 
             <h5 class="fw-bold mb-4">
+
+                <i class="fa-solid fa-wallet me-2 text-primary"></i>
 
                 Rincian Payroll
 
@@ -250,6 +333,7 @@ if (!$data) {
 
                     <tbody>
 
+                        <!-- GAJI POKOK -->
                         <tr>
 
                             <th width="70%">
@@ -268,6 +352,7 @@ if (!$data) {
                         </tr>
 
 
+                        <!-- TUNJANGAN -->
                         <tr>
 
                             <th>
@@ -286,24 +371,7 @@ if (!$data) {
                         </tr>
 
 
-                        <tr>
-
-                            <th>
-
-                                Tunjangan Golongan
-
-                            </th>
-
-                            <td class="fw-bold text-success">
-
-                                Rp
-                                <?= number_format($data['tunjangan_golongan'], 0, ',', '.') ?>
-
-                            </td>
-
-                        </tr>
-
-
+                        <!-- BONUS -->
                         <tr>
 
                             <th>
@@ -322,6 +390,7 @@ if (!$data) {
                         </tr>
 
 
+                        <!-- POTONGAN -->
                         <tr>
 
                             <th>
@@ -340,6 +409,7 @@ if (!$data) {
                         </tr>
 
 
+                        <!-- TOTAL -->
                         <tr class="table-success">
 
                             <th class="fs-5">
@@ -370,6 +440,8 @@ if (!$data) {
 
     <!-- FOOTER -->
     <div class="mt-4 text-muted small">
+
+        <i class="fa-solid fa-clock me-2"></i>
 
         Payroll dibuat pada:
 

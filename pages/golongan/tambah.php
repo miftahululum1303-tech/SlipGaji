@@ -11,13 +11,13 @@ if (isset($_POST['simpan_golongan'])) {
 
     $namaGolongan = trim($_POST['nama_golongan'] ?? '');
 
-    $tunjanganGolongan = intval($_POST['tunjangan_golongan'] ?? 0);
+    $gajiPokok = intval($_POST['gaji_pokok'] ?? 0);
 
     /* ========================================
        VALIDASI
     ======================================== */
 
-    if (empty($namaGolongan) || $tunjanganGolongan <= 0) {
+    if (empty($namaGolongan) || $gajiPokok <= 0) {
         echo "
 
         <script>
@@ -83,12 +83,12 @@ if (isset($_POST['simpan_golongan'])) {
         "INSERT INTO golongan (
 
             nama_golongan,
-            tunjangan_golongan
+            gaji_pokok
 
         ) VALUES (
 
             '$namaGolongan',
-            '$tunjanganGolongan'
+            '$gajiPokok'
 
         )",
     );

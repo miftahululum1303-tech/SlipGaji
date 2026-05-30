@@ -87,7 +87,7 @@ if (!$data) {
 
     <style>
         body {
-            background: white;
+            background: #f5f5f5;
             padding: 40px;
             font-family: sans-serif;
         }
@@ -95,19 +95,22 @@ if (!$data) {
         .slip-container {
             max-width: 850px;
             margin: auto;
-            border: 1px solid #ddd;
-            border-radius: 20px;
+            background: white;
+            border-radius: 24px;
             padding: 40px;
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, .08);
         }
 
         .table td,
         .table th {
-            padding: 14px;
+            padding: 16px;
         }
 
         @media print {
 
             body {
+                background: white;
                 padding: 0;
             }
 
@@ -116,7 +119,8 @@ if (!$data) {
             }
 
             .slip-container {
-                border: none;
+                box-shadow: none;
+                border-radius: 0;
                 padding: 0;
             }
 
@@ -131,27 +135,42 @@ if (!$data) {
     <div class="slip-container">
 
         <!-- HEADER -->
-        <div class="d-flex justify-content-between align-items-center mb-5">
+        <div class="d-flex justify-content-between align-items-start mb-5 pb-4 border-bottom">
 
+            <!-- COMPANY -->
             <div>
 
-                <h2 class="fw-bold mb-1">
+                <h2 class="fw-bold mb-1 text-primary">
 
-                    Payroll Management System
+                    PAYROLL SYSTEM
 
                 </h2>
 
-                <p class="text-muted mb-0">
+                <p class="text-muted mb-1">
 
                     PT. Ranma Digital Indonesia
 
                 </p>
 
+                <small class="text-muted">
+
+                    Sistem Informasi Payroll Karyawan
+
+                </small>
+
             </div>
 
+
+            <!-- SLIP -->
             <div class="text-end">
 
-                <h5 class="fw-bold">
+                <span class="badge bg-primary px-3 py-2 rounded-pill mb-2">
+
+                    <?= $data['periode'] ?>
+
+                </span>
+
+                <h5 class="fw-bold mb-1">
 
                     SLIP GAJI
 
@@ -159,7 +178,8 @@ if (!$data) {
 
                 <small class="text-muted">
 
-                    <?= $data['periode'] ?>
+                    No:
+                    SLIP-<?= str_pad($data['id_gaji'], 5, '0', STR_PAD_LEFT) ?>
 
                 </small>
 
@@ -167,66 +187,100 @@ if (!$data) {
 
         </div>
 
-
         <!-- IDENTITAS -->
-        <div class="row mb-4">
+        <div class="row g-3 mb-5">
 
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6">
 
-                <strong>NIK</strong>
+                <div class="border rounded-4 p-3 h-100">
 
-                <p class="mb-0">
+                    <small class="text-muted d-block mb-1">
 
-                    <?= $data['nik'] ?>
+                        NIK
 
-                </p>
+                    </small>
 
-            </div>
+                    <h6 class="fw-bold mb-0">
 
-            <div class="col-md-6 mb-3">
+                        <?= $data['nik'] ?>
 
-                <strong>Nama Karyawan</strong>
+                    </h6>
 
-                <p class="mb-0">
-
-                    <?= $data['nama_karyawan'] ?>
-
-                </p>
+                </div>
 
             </div>
 
-            <div class="col-md-6 mb-3">
 
-                <strong>Jabatan</strong>
+            <div class="col-md-6">
 
-                <p class="mb-0">
+                <div class="border rounded-4 p-3 h-100">
 
-                    <?= $data['nama_jabatan'] ?>
+                    <small class="text-muted d-block mb-1">
 
-                </p>
+                        Nama Karyawan
+
+                    </small>
+
+                    <h6 class="fw-bold mb-0">
+
+                        <?= $data['nama_karyawan'] ?>
+
+                    </h6>
+
+                </div>
 
             </div>
 
-            <div class="col-md-6 mb-3">
 
-                <strong>Golongan</strong>
+            <div class="col-md-6">
 
-                <p class="mb-0">
+                <div class="border rounded-4 p-3 h-100">
 
-                    <?= $data['nama_golongan'] ?>
+                    <small class="text-muted d-block mb-1">
 
-                </p>
+                        Jabatan
+
+                    </small>
+
+                    <h6 class="fw-bold mb-0">
+
+                        <?= $data['nama_jabatan'] ?>
+
+                    </h6>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="border rounded-4 p-3 h-100">
+
+                    <small class="text-muted d-block mb-1">
+
+                        Golongan
+
+                    </small>
+
+                    <h6 class="fw-bold mb-0">
+
+                        <?= $data['nama_golongan'] ?>
+
+                    </h6>
+
+                </div>
 
             </div>
 
         </div>
-
 
         <!-- TABLE -->
         <table class="table table-bordered align-middle">
 
             <tbody>
 
+                <!-- GAJI -->
                 <tr>
 
                     <th width="70%">
@@ -235,7 +289,7 @@ if (!$data) {
 
                     </th>
 
-                    <td>
+                    <td class="fw-bold text-primary">
 
                         Rp
                         <?= number_format($data['gaji_pokok'], 0, ',', '.') ?>
@@ -245,6 +299,7 @@ if (!$data) {
                 </tr>
 
 
+                <!-- TUNJANGAN -->
                 <tr>
 
                     <th>
@@ -253,7 +308,7 @@ if (!$data) {
 
                     </th>
 
-                    <td>
+                    <td class="fw-bold text-info">
 
                         Rp
                         <?= number_format($data['tunjangan_jabatan'], 0, ',', '.') ?>
@@ -263,24 +318,7 @@ if (!$data) {
                 </tr>
 
 
-                <tr>
-
-                    <th>
-
-                        Tunjangan Golongan
-
-                    </th>
-
-                    <td>
-
-                        Rp
-                        <?= number_format($data['tunjangan_golongan'], 0, ',', '.') ?>
-
-                    </td>
-
-                </tr>
-
-
+                <!-- BONUS -->
                 <tr>
 
                     <th>
@@ -289,7 +327,7 @@ if (!$data) {
 
                     </th>
 
-                    <td>
+                    <td class="fw-bold text-success">
 
                         Rp
                         <?= number_format($data['bonus'], 0, ',', '.') ?>
@@ -299,6 +337,7 @@ if (!$data) {
                 </tr>
 
 
+                <!-- POTONGAN -->
                 <tr>
 
                     <th>
@@ -307,7 +346,7 @@ if (!$data) {
 
                     </th>
 
-                    <td>
+                    <td class="fw-bold text-danger">
 
                         Rp
                         <?= number_format($data['potongan'], 0, ',', '.') ?>
@@ -317,6 +356,7 @@ if (!$data) {
                 </tr>
 
 
+                <!-- TOTAL -->
                 <tr class="table-success">
 
                     <th class="fs-5">
@@ -325,7 +365,7 @@ if (!$data) {
 
                     </th>
 
-                    <td class="fw-bold fs-5">
+                    <td class="fw-bold fs-4">
 
                         Rp
                         <?= number_format($data['total_gaji'], 0, ',', '.') ?>
@@ -338,22 +378,27 @@ if (!$data) {
 
         </table>
 
-
         <!-- FOOTER -->
-        <div class="row mt-5">
+        <div class="row mt-5 pt-4 border-top">
 
+            <!-- LEFT -->
             <div class="col-6">
 
-                <small class="text-muted">
+                <small class="text-muted d-block mb-2">
 
                     Dicetak pada:
 
+                </small>
+
+                <strong>
+
                     <?= date('d F Y H:i') ?>
 
-                </small>
+                </strong>
 
             </div>
 
+            <!-- RIGHT -->
             <div class="col-6 text-end">
 
                 <p class="mb-5">
@@ -362,11 +407,17 @@ if (!$data) {
 
                 </p>
 
-                <h6 class="fw-bold">
+                <h6 class="fw-bold text-decoration-underline mb-1">
 
                     HR Payroll
 
                 </h6>
+
+                <small class="text-muted">
+
+                    PT. Ranma Digital Indonesia
+
+                </small>
 
             </div>
 
@@ -385,7 +436,13 @@ if (!$data) {
         </div>
 
     </div>
+    <script>
+        window.onload = function() {
 
+            window.print();
+
+        }
+    </script>
 </body>
 
 </html>

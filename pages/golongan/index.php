@@ -24,7 +24,7 @@ include 'pages/golongan/hapus.php';
 
             <p class="text-muted small mb-0">
 
-                Kelola data tunjangan golongan karyawan
+                Kelola data gaji pokok berdasarkan golongan
 
             </p>
 
@@ -69,7 +69,7 @@ include 'pages/golongan/hapus.php';
 
                         <label class="form-label">
 
-                            Tunjangan Golongan
+                            Gaji Pokok
 
                         </label>
 
@@ -81,8 +81,7 @@ include 'pages/golongan/hapus.php';
 
                             </span>
 
-                            <input type="number" name="tunjangan_golongan" class="form-control" placeholder="0"
-                                required>
+                            <input type="number" name="gaji_pokok" class="form-control" placeholder="0" required>
 
                         </div>
 
@@ -130,7 +129,7 @@ include 'pages/golongan/hapus.php';
                     </th>
 
                     <th>
-                        Tunjangan
+                        Gaji Pokok
                     </th>
 
                     <th class="text-center no-sort">
@@ -180,7 +179,7 @@ include 'pages/golongan/hapus.php';
                     <td class="fw-bold text-success">
 
                         Rp
-                        <?= number_format($row['tunjangan_golongan'], 0, ',', '.') ?>
+                        <?= number_format($row['gaji_pokok'], 0, ',', '.') ?>
 
                     </td>
 

@@ -8,6 +8,223 @@ include 'pages/jabatan/hapus.php';
 
 ?>
 
+<?php
+
+/* ========================================
+   ALERT SUCCESS
+======================================== */
+
+if (isset($_GET['success'])) {
+
+?>
+
+<div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="d-flex align-items-center">
+
+        <i class="fa-solid fa-circle-check me-3 fs-4"></i>
+
+        <div>
+
+            <strong>Berhasil!</strong>
+
+            <?php
+
+            switch ($_GET['success']) {
+                case 'tambah':
+                    echo 'Data jabatan berhasil ditambahkan';
+                    break;
+
+                case 'edit':
+                    echo 'Data jabatan berhasil diperbarui';
+                    break;
+
+                case 'hapus':
+                    echo 'Data jabatan berhasil dihapus';
+                    break;
+
+                default:
+                    echo 'Operasi berhasil dilakukan';
+                    break;
+            }
+
+            ?>
+
+        </div>
+
+    </div>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+</div>
+
+<?php } ?>
+
+
+<?php
+
+/* ========================================
+   ALERT ERROR
+======================================== */
+
+if (isset($_GET['error'])) {
+
+?>
+
+<div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="d-flex align-items-center">
+
+        <i class="fa-solid fa-circle-exclamation me-3 fs-4"></i>
+
+        <div>
+
+            <strong>Gagal!</strong>
+
+            <?php
+
+            switch ($_GET['error']) {
+                case 'relasi':
+                    echo 'Jabatan tidak dapat dihapus karena masih digunakan pada transaksi';
+                    break;
+
+                case 'hapus':
+                    echo 'Gagal menghapus data jabatan';
+                    break;
+
+                case 'edit':
+                    echo 'Gagal memperbarui data jabatan';
+                    break;
+
+                case 'tambah':
+                    echo 'Gagal menambahkan data jabatan';
+                    break;
+
+                default:
+                    echo 'Terjadi kesalahan pada sistem';
+                    break;
+            }
+
+            ?>
+
+        </div>
+
+    </div>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+</div>
+
+<?php } ?>
+
+<?php
+
+/* ========================================
+   ALERT SUCCESS
+======================================== */
+
+if (isset($_GET['success'])) {
+
+?>
+
+<div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="d-flex align-items-center">
+
+        <i class="fa-solid fa-circle-check me-3 fs-4"></i>
+
+        <div>
+
+            <strong>Berhasil!</strong>
+
+            <?php
+
+            switch ($_GET['success']) {
+                case 'tambah':
+                    echo 'Data jabatan berhasil ditambahkan';
+                    break;
+
+                case 'edit':
+                    echo 'Data jabatan berhasil diperbarui';
+                    break;
+
+                case 'hapus':
+                    echo 'Data jabatan berhasil dihapus';
+                    break;
+
+                default:
+                    echo 'Operasi berhasil dilakukan';
+                    break;
+            }
+
+            ?>
+
+        </div>
+
+    </div>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+</div>
+
+<?php } ?>
+
+
+<?php
+
+/* ========================================
+   ALERT ERROR
+======================================== */
+
+if (isset($_GET['error'])) {
+
+?>
+
+<div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="d-flex align-items-center">
+
+        <i class="fa-solid fa-circle-exclamation me-3 fs-4"></i>
+
+        <div>
+
+            <strong>Gagal!</strong>
+
+            <?php
+
+            switch ($_GET['error']) {
+                case 'relasi':
+                    echo 'Jabatan tidak dapat dihapus karena masih digunakan pada transaksi';
+                    break;
+
+                case 'hapus':
+                    echo 'Gagal menghapus data jabatan';
+                    break;
+
+                case 'edit':
+                    echo 'Gagal memperbarui data jabatan';
+                    break;
+
+                case 'tambah':
+                    echo 'Gagal menambahkan data jabatan';
+                    break;
+
+                default:
+                    echo 'Terjadi kesalahan pada sistem';
+                    break;
+            }
+
+            ?>
+
+        </div>
+
+    </div>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+</div>
+
+<?php } ?>
 
 <div class="card-dashboard p-4">
 
@@ -24,7 +241,7 @@ include 'pages/jabatan/hapus.php';
 
             <p class="text-muted small mb-0">
 
-                Kelola data jabatan dan gaji pokok karyawan
+                Kelola data jabatan dan tunjangan jabatan karyawan
 
             </p>
 
@@ -51,7 +268,7 @@ include 'pages/jabatan/hapus.php';
                 <div class="row g-3">
 
                     <!-- NAMA -->
-                    <div class="col-md-4">
+                    <div class="col-md-7">
 
                         <label class="form-label">
 
@@ -61,29 +278,6 @@ include 'pages/jabatan/hapus.php';
 
                         <input type="text" name="nama_jabatan" class="form-control"
                             placeholder="Masukkan nama jabatan" required>
-
-                    </div>
-
-                    <!-- GAJI -->
-                    <div class="col-md-3">
-
-                        <label class="form-label">
-
-                            Gaji Pokok
-
-                        </label>
-
-                        <div class="input-group">
-
-                            <span class="input-group-text">
-
-                                Rp
-
-                            </span>
-
-                            <input type="number" name="gaji_pokok" class="form-control" placeholder="0" required>
-
-                        </div>
 
                     </div>
 
@@ -153,10 +347,6 @@ include 'pages/jabatan/hapus.php';
                     </th>
 
                     <th>
-                        Gaji Pokok
-                    </th>
-
-                    <th>
                         Tunjangan
                     </th>
 
@@ -204,13 +394,6 @@ include 'pages/jabatan/hapus.php';
 
                     </td>
 
-                    <td class="fw-bold text-success">
-
-                        Rp
-                        <?= number_format($row['gaji_pokok'], 0, ',', '.') ?>
-
-                    </td>
-
                     <td class="fw-bold text-primary">
 
                         Rp
@@ -249,6 +432,5 @@ include 'pages/jabatan/hapus.php';
     </div>
 
 </div>
-
 
 <?php include 'pages/jabatan/modal.php'; ?>

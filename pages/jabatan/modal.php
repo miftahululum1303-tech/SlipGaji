@@ -72,32 +72,6 @@ while ($row = mysqli_fetch_assoc($queryModal)) {
 
                     </div>
 
-
-                    <!-- GAJI POKOK -->
-                    <div class="mb-3">
-
-                        <label class="form-label fw-semibold">
-
-                            Gaji Pokok
-
-                        </label>
-
-                        <div class="input-group">
-
-                            <span class="input-group-text">
-
-                                Rp
-
-                            </span>
-
-                            <input type="number" name="gaji_pokok" class="form-control"
-                                value="<?= $row['gaji_pokok'] ?>" required>
-
-                        </div>
-
-                    </div>
-
-
                     <!-- TUNJANGAN -->
                     <div class="mb-3">
 
@@ -123,7 +97,6 @@ while ($row = mysqli_fetch_assoc($queryModal)) {
                     </div>
 
                 </div>
-
 
                 <!-- FOOTER -->
                 <div class="modal-footer border-0 pt-0">

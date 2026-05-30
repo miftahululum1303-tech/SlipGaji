@@ -11,15 +11,13 @@ if (isset($_POST['simpan_jabatan'])) {
 
     $namaJabatan = trim($_POST['nama_jabatan'] ?? '');
 
-    $gajiPokok = intval($_POST['gaji_pokok'] ?? 0);
-
     $tunjanganJabatan = intval($_POST['tunjangan_jabatan'] ?? 0);
 
     /* ========================================
        VALIDASI
     ======================================== */
 
-    if (empty($namaJabatan) || $gajiPokok <= 0 || $tunjanganJabatan < 0) {
+    if (empty($namaJabatan) || $tunjanganJabatan < 0) {
         echo "
 
         <script>
@@ -85,13 +83,11 @@ if (isset($_POST['simpan_jabatan'])) {
         "INSERT INTO jabatan (
 
             nama_jabatan,
-            gaji_pokok,
             tunjangan_jabatan
 
         ) VALUES (
 
             '$namaJabatan',
-            '$gajiPokok',
             '$tunjanganJabatan'
 
         )",
@@ -136,3 +132,4 @@ if (isset($_POST['simpan_jabatan'])) {
         exit();
     }
 }
+    

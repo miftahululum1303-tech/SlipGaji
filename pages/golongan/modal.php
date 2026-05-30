@@ -90,8 +90,8 @@ while ($row = mysqli_fetch_assoc($queryModal)) {
 
                             </span>
 
-                            <input type="number" name="tunjangan_golongan" class="form-control"
-                                value="<?= $row['tunjangan_golongan'] ?>" required>
+                            <input type="number" name="gaji_pokok" class="form-control"
+                                value="<?= $row['gaji_pokok'] ?>" required>
 
                         </div>
 

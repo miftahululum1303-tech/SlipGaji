@@ -1,6 +1,8 @@
 <?php
 
 include 'pages/transaksi/gaji/generate.php';
+include 'pages/transaksi/gaji/modal.php';
+include 'pages/transaksi/gaji/hapus.php';
 
 ?>
 
@@ -28,60 +30,12 @@ include 'pages/transaksi/gaji/generate.php';
 
     </div>
 
-
-    <!-- FORM -->
     <form method="POST">
 
         <div class="row g-3">
 
-            <!-- KARYAWAN -->
-            <div class="col-md-4">
-
-                <label class="form-label">
-
-                    Pilih Karyawan
-
-                </label>
-
-                <select name="id_karyawan" class="form-select" required>
-
-                    <option value="">
-                        -- Pilih Karyawan --
-                    </option>
-
-                    <?php
-
-                    $karyawan = mysqli_query(
-
-                        $koneksi,
-
-                        "SELECT *
-                         FROM karyawan
-                         ORDER BY nama_karyawan ASC"
-
-                    );
-
-                    while ($k = mysqli_fetch_assoc($karyawan)) {
-
-                    ?>
-
-                    <option value="<?= $k['id_karyawan'] ?>">
-
-                        <?= $k['nik'] ?>
-                        -
-                        <?= $k['nama_karyawan'] ?>
-
-                    </option>
-
-                    <?php } ?>
-
-                </select>
-
-            </div>
-
-
             <!-- PERIODE -->
-            <div class="col-md-3">
+            <div class="col-md-10">
 
                 <label class="form-label">
 
@@ -94,44 +48,20 @@ include 'pages/transaksi/gaji/generate.php';
             </div>
 
 
-            <!-- BONUS -->
-            <div class="col-md-2">
-
-                <label class="form-label">
-
-                    Bonus
-
-                </label>
-
-                <input type="number" name="bonus" class="form-control" value="0">
-
-            </div>
-
-
-            <!-- POTONGAN -->
-            <div class="col-md-2">
-
-                <label class="form-label">
-
-                    Potongan
-
-                </label>
-
-                <input type="number" name="potongan" class="form-control" value="0">
-
-            </div>
-
-
             <!-- BUTTON -->
-            <div class="col-md-1 d-grid">
+            <div class="col-md-2 d-grid">
 
                 <label class="form-label invisible">
+
                     Button
+
                 </label>
 
-                <button type="submit" name="generate_gaji" class="btn btn-success">
+                <button type="submit" name="generate_semua_gaji" class="btn btn-success">
 
-                    <i class="fa-solid fa-floppy-disk"></i>
+                    <i class="fa-solid fa-bolt me-2"></i>
+
+                    Generate
 
                 </button>
 
@@ -247,7 +177,13 @@ include 'pages/transaksi/gaji/generate.php';
                     </td>
 
                     <td class="text-center">
+                        <!-- EDIT -->
+                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#editPayroll<?= $row['id_gaji'] ?>">
 
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
                         <!-- DETAIL -->
                         <a href="index.php?page=detail_gaji&id=<?= $row['id_gaji'] ?>"
                             class="btn btn-info btn-sm text-white">

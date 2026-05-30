@@ -13,13 +13,13 @@ if (isset($_POST['update_golongan'])) {
 
     $namaGolongan = trim($_POST['nama_golongan'] ?? '');
 
-    $tunjanganGolongan = intval($_POST['tunjangan_golongan'] ?? 0);
+    $gajiPokok = intval($_POST['gaji_pokok'] ?? 0);
 
     /* ========================================
        VALIDASI
     ======================================== */
 
-    if ($idGolongan <= 0 || empty($namaGolongan) || $tunjanganGolongan <= 0) {
+    if ($idGolongan <= 0 || empty($namaGolongan) || $gajiPokok <= 0) {
         echo "
 
         <script>
@@ -88,7 +88,7 @@ if (isset($_POST['update_golongan'])) {
          SET
 
             nama_golongan = '$namaGolongan',
-            tunjangan_golongan = '$tunjanganGolongan'
+            gaji_pokok = '$gajiPokok'
 
          WHERE
 

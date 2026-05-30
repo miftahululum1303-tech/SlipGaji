@@ -12,11 +12,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
 
         <script>
             alert(
-                'ID jabatan tidak valid'
+                'ID payroll tidak valid'
             );
 
             window.location =
-                'index.php?page=jabatan';
+                'index.php?page=transaksi_gaji';
         </script>
 
         ";
@@ -25,44 +25,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
     }
 
     /* ========================================
-       CEK RELASI TRANSAKSI
-    ======================================== */
-
-    $cek = mysqli_query(
-        $koneksi,
-
-        "SELECT *
-         FROM transaksi_jabatan
-         WHERE id_jabatan='$id'
-         LIMIT 1",
-    );
-
-    if (mysqli_num_rows($cek) > 0) {
-        echo "
-
-        <script>
-            alert(
-                'Jabatan tidak dapat dihapus karena masih digunakan pada transaksi'
-            );
-
-            window.location =
-                'index.php?page=jabatan';
-        </script>
-
-        ";
-
-        exit();
-    }
-
-    /* ========================================
-       HAPUS DATA
+       HAPUS TRANSAKSI GAJI
     ======================================== */
 
     $hapus = mysqli_query(
         $koneksi,
 
-        "DELETE FROM jabatan
-         WHERE id_jabatan='$id'",
+        "DELETE FROM transaksi_gaji
+         WHERE id_gaji='$id'",
     );
 
     /* ========================================
@@ -74,11 +44,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
 
         <script>
             alert(
-                'Data jabatan berhasil dihapus'
+                'Payroll berhasil dihapus'
             );
 
             window.location =
-                'index.php?page=jabatan';
+                'index.php?page=transaksi_gaji';
         </script>
 
         ";
@@ -90,11 +60,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'hapus') {
 
         <script>
             alert(
-                'Gagal menghapus data jabatan'
+                'Gagal menghapus payroll'
             );
 
             window.location =
-                'index.php?page=jabatan';
+                'index.php?page=transaksi_gaji';
         </script>
 
         ";
